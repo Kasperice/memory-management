@@ -21,7 +21,7 @@ public:
     // std::function<void(T*)> deleter_ = [](T* ptrToDelete) { delete ptrToDelete; };
 
 private:
-    std::atomic<size_t> sharedRefs_{1};
+    std::atomic<size_t> sharedRefs_{0};
     std::atomic<size_t> weakRefs_{0};
 };
 

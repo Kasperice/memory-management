@@ -85,6 +85,7 @@ TEST_F(SharedPointerTest, shouldResetSharedPtrNoArgumentCase)
 {
     s_ptr.reset();
     ASSERT_EQ(s_ptr.get(), nullptr);
+    ASSERT_EQ(s_ptr.use_count(), noReferences);
 }
 
 TEST_F(SharedPointerTest, shouldResetSharedPtrWithArgumentCase)
@@ -175,7 +176,7 @@ TEST_F(WeakPointerTest, shouldUseCopyAssignment)
 
 TEST_F(ControlBlockTest, shouldGetSharedRefs)
 {
-    ASSERT_EQ(testControlBlock.getShared(), oneReference);
+    ASSERT_EQ(testControlBlock.getShared(), noReferences);
 }
 
 TEST_F(ControlBlockTest, shouldGetWeakRefs)
@@ -186,7 +187,7 @@ TEST_F(ControlBlockTest, shouldGetWeakRefs)
 TEST_F(ControlBlockTest, shouldIncreaseSharedRefs)
 {
     testControlBlock.increaseShared();
-    ASSERT_EQ(testControlBlock.getShared(), twoReferences);
+    ASSERT_EQ(testControlBlock.getShared(), oneReference);
 }
 
 TEST_F(ControlBlockTest, shouldIncreaseWeakRefs)
@@ -199,7 +200,7 @@ TEST_F(ControlBlockTest, shouldDecreaseSharedRefs)
 {
     testControlBlock.increaseShared();
     testControlBlock.decreaseShared();
-    ASSERT_EQ(testControlBlock.getShared(), oneReference);
+    ASSERT_EQ(testControlBlock.getShared(), noReferences);
 }
 
 TEST_F(ControlBlockTest, shouldDecreaseWeakRefs)
